@@ -1,3 +1,13 @@
+BrainFuck 기반의 언어입니다.
+
+잡아먹지마세요 -> 포인터가 지시하는 매모리의 값 증가
+안잡아먹거든   -> 포인터가 지시하는 매모리의 값 감소
+움직여        -> 포인터 증가
+가만있어      -> 포인터 감소
+말했다        -> 포인터가 지시하는 매모리의 값에 해당하는 아스키코드 출력
+만들었다고    -> 포인터가 지시하는 매모리에 입력한 값에 해당하는 아스키코드 입력
+나야          -> 포인터가 지시하는 매모리의 값이 0인경우 '모르지'까지 점프
+모르지          -> 포인터가 지시하는 매모리의 값이 0이 아닌경우 '나야'까지 점프
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,8 +26,8 @@
             display:block;
         }
         textarea{
-            width: 48%;
-            height: 800px;
+            width: 100%;
+            height: 400px;
         }
         div{
             align-items: center;
@@ -26,8 +36,8 @@
 </head>
 <body>
     <h1>JapariProgrammingLanguage Interpreter</h1>
-    <div><textarea name="Coding Hire" id="code" placeholder = "Coding here" ></textarea>  
-    <textarea name="Result Hire" id="result"  disabled placeholder = "Result"></textarea> </div>
+    <div><textarea name="Coding Hire" id="code" placeholder = "Coding here" ></textarea>  </div>
+    <p id="result"  ></p> 
     <button id = "run" onclick = "runCode()">Run!!</button>
     
 <script>
@@ -63,7 +73,7 @@
             case '안잡아먹거든' : memory[ptr]--; if(memory[ptr]<0)memory[ptr]=0xFF;break;
             case '움직여' : ptr++;break;
             case '가만있어' : ptr--;break;
-            case '말했다' : outputString += (memory[ptr] == 10)? '<br>':(memory[ptr] == 32)? '&nbsp; ':String.fromCharCode(memory[ptr]); break;
+            case '말했다' : outputString += (memory[ptr] == 10)? '<br>':(memory[ptr] == 32)? '&nbsp;':String.fromCharCode(memory[ptr]); break;
             case '만들었다고' : memory[ptr]= prompt("").charCodeAt(0)&0xFF;
             case '나야' : 
                 if (memory[ptr] == 0){
@@ -107,7 +117,7 @@
         for(index = 0;index < codeChar.length;index++){
             decodeCode(codeChar[index]);
         }
-        document.getElementById("result").value = outputString;
+        document.getElementById("result").innerHTML = outputString;
     }
 
 </script>
